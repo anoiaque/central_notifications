@@ -33,10 +33,11 @@ You can declare a notifier inside the model by including the module CentralNotif
     registration.method = :payment
     notification.method = :one_order_has_been_payed
   end
-In this way you don't have to have to declare the notification.klass which is automatically set to self.
+In this way you don't have to declare the notification klass, it will be automatically set to self.
 
 ==== In an initializer
 You can register your notification in an initializer (for exemple, in Rails, in a file under config/initializers).
+
 The analog as previous example will be in this initializer :
   CentralNotifications.notify do |registration, notification|
     registration.klass = Order
@@ -62,7 +63,6 @@ Suppose you have classes User and Order, and, you have registered for notificati
   
   order = Order.new
   order.payment(100)
-  
   # => "Hey! one user know that one order has been paid!"
   
 If you register notification for another class objects :
