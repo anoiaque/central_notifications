@@ -100,4 +100,30 @@ You can get in User class the result of Order#payment in the instance variable @
   order.payment(100)
   
   # => "Payment is : 100"
-  
+
+== Acting as Observer
+
+You can use central notifications as observers on attribute values change.
+For that, just register on setter :
+    
+    class Order
+      attr_accessor :amount
+    end
+
+    class User
+      include CentralNotification
+    
+      def amount_has_changed
+        puts "The amount has changed and is now:" + @registration_result.to_s
+      end
+    
+      register_for_notification do |registration, notification|
+        registration.klass = Order
+        registration.method = :amount=
+        notification.method = :amount_has_changed
+      end
+    end
+  user = User.new
+  order = Order.new
+  order.amount = 100
+  #=> From user : The amount has changed and is now: 100
