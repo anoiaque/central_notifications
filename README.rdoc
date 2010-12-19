@@ -123,6 +123,7 @@ For that, just register on setter :
         notification.method = :amount_has_changed
       end
     end
+
   user = User.new
   order = Order.new
   order.amount = 100
