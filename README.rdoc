@@ -1,10 +1,15 @@
 == Overview
 
 Based on the idea of notifications in objective-C.
+
 Register an object method for notifications.
+
 When registered method is called, all objects which have registered will be notified and will be able to know the result of the registered method.
+
 Can act as Rails observers, by registering on setters methods.
+
 You can register both class or instance methods.
+
 Several different objects, with different class can register for same object method.
 
 See tests units for more examples of usage.
