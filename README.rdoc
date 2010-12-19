@@ -61,6 +61,7 @@ Suppose you have classes User and Order, and, you have registered for notificati
     end
   end
   
+  user = User.new
   order = Order.new
   order.payment(100)
   # => "Hey! one user know that one order has been paid!"
@@ -82,6 +83,8 @@ If you register notification for another class objects :
   end
   
 then :
+  user = User.new
+  accounting = Accounting.new
   order = Order.new
   order.payment(100)
   
@@ -96,6 +99,7 @@ You can get in User class the result of Order#payment in the instance variable @
     puts "Payment is : " + @registration_result.to_s
   end
   
+  user = User.new
   order = Order.new
   order.payment(100)
   
