@@ -1,0 +1,98 @@
+== Overview
+
+Based on the idea of notifications in objective-C.
+Register an object method for notifications.
+When registered method is called, all objects which have registered will be notified and will be able to know the result of the registered method.
+Can act as Rails observers, by registering on setters methods.
+You can register both class or instance methods.
+Several different objects, with different class can register for same object method.
+
+See tests units for more examples of usage.
+
+== Install
+
+  gem install central_notifications
+
+== Dependencies
+
+none
+
+== Usage
+
+
+=== Declaring a notifier
+==== In the model
+You can declare a notifier inside the model by including the module CentralNotifications and then declare in you model :
+  register_for_notification do |registration, notification|
+    registration.klass = Order
+    registration.method = :payment
+    notification.method = :one_order_has_been_payed
+  end
+In this way you don't have to have to declare the notification.klass which is automatically set to self.
+
+==== In an initializer
+You can register your notification in an initializer (for exemple, in Rails, in a file under config/initializers).
+The analog as previous example will be in this initializer :
+  CentralNotifications.notify do |registration, notification|
+    registration.klass = Order
+    registration.method = :payment
+    notification.klass = User
+    notification.method = :one_order_has_been_payed
+  end
+
+== Example
+Suppose you have classes User and Order, and, you have registered for notification on instance method :payment (as previous)
+
+  class User
+    def one_order_has_been_payed
+     puts "Hey! one user know that one order has been paid!"
+    end
+  end
+  
+  def Order
+    def payment(amount)
+      @amount = amount
+    end
+  end
+  
+  order = Order.new
+  order.payment(100)
+  
+  # => "Hey! one user know that one order has been paid!"
+  
+If you register notification for another class objects :
+
+  class Acounting
+    include CentralNotification
+    
+    def one_order_has_been_payed
+      "Hey ! an accounting object know that one order has been payed"
+    end
+    
+    register_for_notification do |registration, notification|
+      registration.klass = Order
+      registration.method = :payment
+      notification.method = :one_order_has_been_payed
+    end
+  end
+  
+then :
+  order = Order.new
+  order.payment(100)
+  
+   # => "Hey! one user know that one order has been paid!"
+   # => "Hey ! an accounting object know that one order has been payed"
+
+== Retrieve the result of the registered method
+
+You can get in User class the result of Order#payment in the instance variable @registration_result.
+
+  def one_order_has_been_payed
+    puts "Payment is : " + @registration_result.to_s
+  end
+  
+  order = Order.new
+  order.payment(100)
+  
+  # => "Payment is : 100"
+  
