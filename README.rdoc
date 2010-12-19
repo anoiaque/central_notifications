@@ -124,6 +124,8 @@ For that, just register on setter :
       end
     end
 
+
+
   user = User.new
   order = Order.new
   order.amount = 100
