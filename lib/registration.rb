@@ -22,7 +22,7 @@ module CentralNotifications
     end
   
     def already_registered?
-      @real_klass.instance_methods.include?(@original_alias_symbol.to_s)
+      @real_klass.instance_methods.map(&:to_sym).include?(@original_alias_symbol)
     end
   
     def set_notifier_in_notifier_class
@@ -35,7 +35,7 @@ module CentralNotifications
       redefine_method
     end
   
-    def redefine_method 
+    def redefine_method
       registration, eigenclass, original = self, on_eigenclass?, @original_alias_symbol
       @real_klass.send(:define_method, method) do |*params|
          registration.result = send(original, *params)
@@ -46,7 +46,7 @@ module CentralNotifications
     end
   
     def singleton_method?
-      klass.send(:singleton_methods).include?(method.to_s)  
+      klass.send(:singleton_methods).map(&:to_sym).include?(@method)  
     end
   
     def on_eigenclass?
