@@ -62,5 +62,13 @@ class TestNotifier < Test::Unit::TestCase
     
     order.payment(100)
   end
+  
+  def test_notified_method_should_be_able_to_know_object_which_triggered_notifications
+    user, order = User.new, Order.new
+    
+    result = order.payment(100, :usd)
+
+    assert_equal order, user.instance_variable_get(:@notifier_object)
+  end
 
 end

@@ -40,7 +40,7 @@ module CentralNotifications
       @real_klass.send(:define_method, method) do |*params|
          registration.result = send(original, *params)
          notifier = (eigenclass ? self : self.class).send(:class_variable_get, NOTIFIER_CLASS_VARIABLE)
-         notifier.alert(registration)
+         notifier.alert(registration, self)
          registration.result
        end
     end

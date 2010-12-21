@@ -22,10 +22,11 @@ module CentralNotifications
       registration.fork
     end
   
-    def alert(registration)
+    def alert(registration, notifier)
       registrations[registration].each do |notified|
         ObjectSpace.each_object(notified[:klass]) do |object|
           object.send(:instance_variable_set, :@registration_result, registration.result)
+          object.send(:instance_variable_set, :@notifier_object, notifier)
           object.send(notified[:method])
         end
       end
