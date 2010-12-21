@@ -105,6 +105,20 @@ You can get in User class the result of Order#payment in the instance variable @
   
   # => "Payment is : 100"
 
+== Retrieve the object which trigger the notification
+
+You can get in User class the result of Order#payment in the instance variable @registration_result.
+
+  def one_order_has_been_payed
+    puts "payment has been called by this object : " + @notifier_object
+  end
+  
+  user = User.new
+  order = Order.new
+  order.payment(100)
+  
+  # => "payment has been called by this object : <Order: ....>"
+
 == Acting as Observer
 
 You can use central notifications as observers on attribute values change.
@@ -137,4 +151,5 @@ For that, just register on setter :
 
 == ChangeLog
 
-FIX : Failures with Ruby 1.9 . #instance_methods, #singleton_methods ... family methods return symbols. Ruby 1.8.x return strings.
+* FIX : Failures with Ruby 1.9 . #instance_methods, #singleton_methods ... family methods return symbols. Ruby 1.8.x return strings.
+* NEW : Notified method has access to object which triggered notification
