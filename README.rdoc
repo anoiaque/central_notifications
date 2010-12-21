@@ -134,3 +134,7 @@ For that, just register on setter :
   order = Order.new
   order.amount = 100
   #=> From user : The amount has changed and is now: 100
+
+== ChangeLog
+
+FIX : Failures with Ruby 1.9 . #instance_methods, #singleton_methods ... family methods return symbols. Ruby 1.8.x return strings.
