@@ -1,15 +1,14 @@
 require 'registration'
+require 'singleton'
 
 module CentralNotifications
   class Notifier
+    include Singleton
+    
     attr_accessor :registrations, :klass, :method
   
     def initialize args={}
       @registrations = {}
-    end
-  
-    def self.instance
-      return @@instance ||= Notifier.new
     end
   
     def register

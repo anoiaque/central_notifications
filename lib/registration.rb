@@ -37,7 +37,7 @@ module CentralNotifications
   
     def redefine_method
       registration, eigenclass, original = self, on_eigenclass?, @original_alias_symbol
-      @real_klass.send(:define_method, method) do |*params|
+      @real_klass.send(:define_method, @method) do |*params|
          registration.result = send(original, *params)
          notifier = (eigenclass ? self : self.class).send(:class_variable_get, NOTIFIER_CLASS_VARIABLE)
          notifier.alert(registration, self)
