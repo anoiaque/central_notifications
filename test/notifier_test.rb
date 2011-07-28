@@ -1,5 +1,4 @@
 # User use central notifications by including module, Accounting by initializer
-
 require 'helper'
 require 'models/central_notifications_initializer'
 
