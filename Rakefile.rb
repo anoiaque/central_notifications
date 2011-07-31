@@ -1,8 +1,11 @@
 require 'rubygems'
 require 'rake'
+require 'rake/testtask'
 
 task :default => [:test]
 
-task :test do
-  ruby "-Itest:test/models:lib" + " test/notifier_test.rb"
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/test*.rb']
+  t.verbose = true
 end
