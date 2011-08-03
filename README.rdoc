@@ -16,7 +16,8 @@ See tests units for more examples of usage.
 
 
 == Continuous Integration
-[![Build Status](http://travis-ci.org/[anoiaque]/[central_notifications].png)](http://travis-ci.org/[anoiaque]/[central_notifications])
+"!http://travis-ci.org/[anoiaque]/[central_notifications].png!":http://travis-ci.org/[anoiaque]/[central_notifications]
+
 == Install
 
   gem install central_notifications
