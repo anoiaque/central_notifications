@@ -17,7 +17,6 @@ See tests units for more examples of usage.
 
 == Continuous Integration
 http://travis-ci.org/anoiaque/central_notifications.png
-http://travis-ci.org/anoiaque/central_notifications
 
 == Install
 
