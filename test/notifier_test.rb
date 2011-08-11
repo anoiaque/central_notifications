@@ -1,5 +1,5 @@
 # User use central notifications by including module, Accounting by initializer
-require 'helper'
+require 'test_helper'
 require 'models/central_notifications_initializer'
 
 class TestNotifier < Test::Unit::TestCase
